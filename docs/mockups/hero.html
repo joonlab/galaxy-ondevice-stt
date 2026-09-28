@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="shot" content="w=1600,h=1000,scale=2">
+<title>맥 한 줄 → 폴드8 전사</title>
+<link rel="stylesheet" href="https://mockup-kit.invalid/kit.css">
+<script src="https://mockup-kit.invalid/kit.js"></script>
+<style>
+  .head { position: absolute; top: 44px; left: 64px; right: 64px; }
+  .layout { position: absolute; top: 130px; left: 0; right: 0; bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 44px; }
+  .mac-col { width: 690px; display: flex; flex-direction: column; }
+  .mac-col .terminal { height: 480px; }
+  .line { font-size: 14.5px; line-height: 23px; }
+  .spk { font-size: 12.5px; font-weight: 700; color: var(--accent); }
+  .ts { font-size: 12px; color: var(--dim); margin-left: 6px; font-weight: 500; }
+  .auto-tag { position: absolute; top: 58px; right: 20px; z-index: 30; }
+</style>
+</head>
+<body>
+<div class="canvas">
+  <div class="head">
+    <div class="canvas-title">맥에서 한 줄, 전사는 폴드8이 합니다</div>
+    <div class="canvas-sub">오디오 파일을 폰에 올리고 삼성 음성녹음 앱을 adb 로 몰아 Galaxy AI 전사를 돌린 뒤, 전문을 맥으로 돌려받습니다</div>
+  </div>
+
+  <div class="layout">
+    <!-- 맥 터미널 -->
+    <div class="mac-col">
+      <div class="terminal">
+        <div class="terminal-bar"><span class="traffic"><i></i><i></i><i></i></span><span class="t-title">~/회의 — zsh</span></div>
+        <div class="terminal-body"><span class="t-prompt">❯</span> <span class="t-b">phone-stt 회의메모.m4a --out ~/전사</span>
+<span class="t-accent">▶</span> 1/6 폰으로 전송: stt143015.m4a
+<span class="t-accent">▶</span> 2/6 앱 열기
+<span class="t-accent">▶</span> 3/6 검색으로 찾아 열기
+<span class="t-accent">▶</span> 4/6 텍스트 변환 실행
+   <span class="t-dim">언어 선택 다이얼로그 → 한국어</span>
+<span class="t-accent">▶</span> 5/6 전사 대기…
+<span class="t-accent">▶</span> 6/6 공유로 전문 회수 → 맥으로 보내기
+<span class="t-ok">✅ 저장: ~/전사/회의메모.txt  (1220자)</span>
+<span class="t-dim">─────</span>
+금요일 발표 순서와 자료 마감 정리
+발화자 1 (00:02)
+이번 주 금요일 발표 순서부터 정하죠.
+발화자 2 (00:07)
+저는 두 번째가 좋아요. 자료는 목요일 저녁까지 올릴게요.
+<span class="t-dim">(폰에서 원본 삭제 — 남기려면 --keep)</span>
+
+<span class="t-prompt">❯</span> <span class="t-cursor"></span></div>
+      </div>
+      <div class="device-label">맥 · 터미널</div>
+    </div>
+
+    <!-- 폴드 펼침: 음성 녹음 앱 -->
+    <div>
+      <div class="fold-open" style="--zoom:.74">
+        <div class="screen">
+          <div class="status-bar" data-time="2:30"></div>
+          <div class="app-bar">
+            <span class="mark"><i data-icon="mic"></i></span>
+            <span class="title">음성 녹음</span>
+            <span class="status"><span class="dot ok"></span>adb 로 자동 조작 중</span>
+            <span class="spacer"></span>
+            <span class="icon-btn"><i data-icon="search"></i></span>
+            <span class="icon-btn"><i data-icon="more-vertical"></i></span>
+          </div>
+          <div class="two-pane list-detail">
+            <div class="pane">
+              <div class="input-like card dense"><div class="row"><i data-icon="search"></i><span class="body">stt143015</span></div></div>
+              <div class="section-label">검색 결과</div>
+              <div class="list">
+                <div class="list-row selected"><i class="ico" data-icon="mic"></i><div class="grow"><div class="card-title ellipsis">stt143015</div><div class="meta ellipsis">02:04 · 방금</div></div></div>
+              </div>
+              <div class="section-label">최근 녹음</div>
+              <div class="list">
+                <div class="list-row"><i class="ico" data-icon="mic"></i><div class="grow"><div class="card-title ellipsis">장보기 메모</div><div class="meta ellipsis">00:41 · 어제</div></div></div>
+                <div class="list-row"><i class="ico" data-icon="mic"></i><div class="grow"><div class="card-title ellipsis">스터디 모임</div><div class="meta ellipsis">18:12 · 9월 25일</div></div></div>
+              </div>
+            </div>
+            <div class="pane">
+              <div class="row"><span class="tag ok">텍스트 변환 완료</span><span class="meta">화자 2명 · 02:04</span></div>
+              <div class="card tint">
+                <div class="row gap-8"><i data-icon="sparkle"></i><span class="card-title">금요일 발표 순서와 자료 마감 정리</span></div>
+                <div class="meta">AI 요약 제목</div>
+              </div>
+              <div class="line"><span class="spk">발화자 1</span><span class="ts">00:02</span><br>이번 주 금요일 발표 순서부터 정하죠.</div>
+              <div class="line"><span class="spk">발화자 2</span><span class="ts">00:07</span><br>저는 두 번째가 좋아요. 자료는 목요일 저녁까지 올릴게요.</div>
+              <div class="line"><span class="spk">발화자 1</span><span class="ts">00:15</span><br>좋아요. 민지 씨가 첫 번째로 하고, 다음 회의실은 제가 예약할게요.</div>
+              <div class="line"><span class="spk">발화자 2</span><span class="ts">00:24</span><br>그럼 슬라이드는 열 장 안으로 맞추기로 해요.</div>
+              <div class="line"><span class="spk">발화자 1</span><span class="ts">00:31</span><br>네, 목요일 저녁에 한 번 더 확인할게요.</div>
+              <div class="spacer" style="flex:1"></div>
+              <div class="card dense">
+                <div class="row gap-8"><i data-icon="play"></i><div class="grow"><div class="qs-slider" style="--v:18%;height:8px;padding:0"></div></div><span class="meta tnum">00:22 / 02:04</span></div>
+              </div>
+              <div class="row gap-8"><span class="btn"><i data-icon="share"></i>공유</span><span class="btn btn-ghost"><i data-icon="more-vertical"></i>옵션 더보기</span></div>
+            </div>
+          </div>
+          <div class="nav-handle"></div>
+        </div>
+      </div>
+      <div class="device-label">폴드8 · 펼친 화면 (삼성 음성녹음 앱)</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,247 @@
+#!/usr/bin/env python3
+"""stt-queue — 폰에서 넘어온 새 녹음을 모아 두었다가, 폰이 한가할 때 전사한다.
+
+왜 큐인가: 전사(phone-stt)는 **폰 화면을 점유**한다(삼성 앱 UI 를 adb 로 몰기 때문).
+녹음이 들어오자마자 돌리면 폰을 쓰던 사람이 방해받는다. 그래서 감지는 즉시,
+실행은 «화면 꺼짐 + 충전 중»일 때만 한다.
+
+  stt-queue              상태 (대기 N개 · 완료 · 실패)
+  stt-queue init         지금 있는 녹음을 «기존»으로 표시 (초기 1회 — 옛 녹음 전부를 돌리지 않기 위해)
+  stt-queue scan         새 녹음을 큐에 넣는다 (주기 실행기가 호출)
+  stt-queue run [N]      지금 N개 전사 (기본 1) — 폰 상태와 무관하게 강제
+  stt-queue auto         조건이 맞을 때만 1개 전사 (주기 실행기가 호출)
+  stt-queue skip <이름>   그 파일을 건너뛴 것으로 표시
+
+설정 (~/.config/galaxy-ondevice-stt/config.env 또는 환경변수):
+  STT_REC_DIRS   녹음이 모이는 맥 폴더들, 콜론(:)으로 구분 (예: Syncthing 으로 받는 폰 녹음 폴더)
+  STT_OUT_DIR    전사 결과를 쓸 폴더
+  STT_STATE      큐 상태 파일 (기본 ~/.local/state/galaxy-ondevice-stt/queue.json)
+  PHONE_STT      phone-stt 경로 (기본: 이 스크립트 옆)
+  ADB            adb 경로
+"""
+import datetime
+import json
+import os
+import shutil
+import subprocess
+import sys
+
+HERE = os.path.dirname(os.path.realpath(__file__))
+
+
+def load_config():
+    """KEY=VALUE 설정 파일. 이미 있는 환경변수가 우선한다."""
+    path = os.environ.get("STT_CONFIG") or os.path.expanduser(
+        "~/.config/galaxy-ondevice-stt/config.env")
+    if not os.path.isfile(path):
+        return
+    home = os.path.expanduser("~")
+    with open(path, encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            k, v = line.split("=", 1)
+            k, v = k.strip(), v.strip()
+            if len(v) >= 2 and v[0] == v[-1] and v[0] in "\"'":
+                v = v[1:-1]
+            if v.startswith("~"):
+                v = home + v[1:]
+            v = v.replace("$HOME", home)
+            os.environ.setdefault(k, v)
+
+
+load_config()
+
+
+def _expand(p):
+    return os.path.expanduser(p) if p else p
+
+
+REC_DIRS = [_expand(p) for p in os.environ.get("STT_REC_DIRS", "").split(":") if p.strip()]
+# Syncthing Receive Only 폴더에는 쓰지 않는다 — 로컬 추가로 잡혀 충돌 표시가 난다
+OUT = _expand(os.environ.get("STT_OUT_DIR", "~/Documents/phone-stt-transcripts"))
+STATE = _expand(os.environ.get("STT_STATE", "~/.local/state/galaxy-ondevice-stt/queue.json"))
+PHONE_STT = _expand(os.environ.get("PHONE_STT", os.path.join(HERE, "phone-stt")))
+ADB = _expand(os.environ.get("ADB") or shutil.which("adb")
+              or "~/Library/Android/sdk/platform-tools/adb")
+AUDIO_EXT = (".m4a", ".mp3", ".wav", ".amr", ".3gp", ".aac")
+
+
+def load():
+    try:
+        with open(STATE) as f:
+            st = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        st = {}
+    st.setdefault("done", {})      # 이름 → 전사 시각
+    st.setdefault("failed", {})    # 이름 → [횟수, 마지막 사유]
+    st.setdefault("skipped", [])
+    st.setdefault("baseline", [])  # init 시점에 이미 있던 것 — 자동 대상에서 뺀다
+    st.setdefault("notified", [])  # 「새 녹음이 왔다」를 이미 알린 것
+    return st
+
+
+def save(st):
+    os.makedirs(os.path.dirname(STATE), exist_ok=True)
+    with open(STATE, "w") as f:
+        json.dump(st, f, ensure_ascii=False, indent=2)
+
+
+def audio_files():
+    out = []
+    for d in REC_DIRS:
+        if not os.path.isdir(d):
+            continue
+        for n in os.listdir(d):
+            if n.lower().endswith(AUDIO_EXT) and not n.startswith("."):
+                out.append((n, os.path.join(d, n)))
+    return sorted(out, key=lambda t: os.path.getmtime(t[1]))
+
+
+def pending(st):
+    """아직 전사 안 됐고, 기준선 이후에 생겼고, 3번 넘게 실패하지 않은 것."""
+    skip = set(st["skipped"]) | set(st["baseline"]) | set(st["done"])
+    return [(n, p) for n, p in audio_files()
+            if n not in skip and st["failed"].get(n, [0])[0] < 3]
+
+
+def adb_device():
+    """무선 adb 는 같은 폰이 두 항목으로 잡히기도 한다(TLS 포트 + 5555).
+    -s 를 안 주면 'more than one device' 로 조용히 실패하므로 하나를 고른다."""
+    want = os.environ.get("PHONE_ADB")
+    try:
+        out = subprocess.run([ADB, "devices"], capture_output=True, text=True, timeout=10).stdout
+    except Exception:
+        return None
+    devs = [l.split()[0] for l in out.splitlines()[1:] if l.strip().endswith("device")]
+    if want and want in devs:
+        return want
+    return devs[0] if devs else None
+
+
+def phone_idle():
+    """화면이 꺼져 있고 충전 중인가 — 이때만 폰 UI 를 빌려 쓴다."""
+    dev = adb_device()
+    if not dev:
+        return False, "폰에 안 닿음 (무선 adb 끊김)"
+
+    def sh(*a):
+        try:
+            return subprocess.run([ADB, "-s", dev, *a],
+                                  capture_output=True, text=True, timeout=15).stdout
+        except Exception:
+            return ""
+    power = sh("shell", "dumpsys", "power")
+    if not power:
+        return False, "폰에 안 닿음"
+    awake = "mWakefulness=Awake" in power
+    batt = sh("shell", "dumpsys", "battery")
+    charging = any(f"{k} powered: true" in batt for k in ("AC", "USB", "Wireless"))
+    if awake:
+        return False, "폰을 쓰는 중(화면 켜짐)"
+    if not charging:
+        return False, "충전 중이 아님"
+    return True, "한가함"
+
+
+def transcribe(name, path, st):
+    print(f"▶ 전사: {name}")
+    r = subprocess.run([PHONE_STT, path, "--out", OUT], capture_output=True, text=True)
+    sys.stdout.write(r.stdout[-800:])
+    if r.returncode == 0:
+        st["done"][name] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+        st["failed"].pop(name, None)
+        save(st)
+        return True
+    cnt = st["failed"].get(name, [0, ""])[0] + 1
+    why = (r.stderr or r.stdout or "").strip().splitlines()[-1:] or ["알 수 없음"]
+    st["failed"][name] = [cnt, why[0][:120]]
+    save(st)
+    print(f"❌ 실패({cnt}/3): {why[0][:120]}", file=sys.stderr)
+    return False
+
+
+def notify(msg):
+    """terminal-notifier 가 있으면 맥 알림센터로. 없으면 조용히 넘어간다."""
+    tn = shutil.which("terminal-notifier")
+    if not tn:
+        return
+    try:
+        subprocess.run([tn, "-title", "녹음 전사", "-message", msg, "-group", "stt-queue"],
+                       capture_output=True, timeout=5)
+    except Exception:
+        pass
+
+
+def main():
+    cmd = sys.argv[1] if len(sys.argv) > 1 else "status"
+    if cmd in ("-h", "--help", "help"):
+        print(__doc__)
+        return
+    if not REC_DIRS:
+        print("STT_REC_DIRS 가 비어 있습니다. 설정 파일에 녹음 폴더를 적어 주세요 (config.example.env 참고)")
+        sys.exit(1)
+    st = load()
+
+    if cmd == "init":
+        st["baseline"] = [n for n, _ in audio_files()]
+        save(st)
+        print(f"기준선 설정: 기존 {len(st['baseline'])}개는 자동 전사 대상에서 제외")
+        print("(옛 녹음을 전사하려면 phone-stt 를 직접 부르거나 stt-queue run 을 쓸 것)")
+        return
+
+    if cmd == "scan":
+        p = pending(st)
+        if p:
+            notify(f"새 녹음 {len(p)}개 — 폰이 충전 중 + 화면 꺼지면 자동 전사합니다")
+            print(f"대기 {len(p)}개")
+        return
+
+    if cmd == "skip":
+        if len(sys.argv) < 3:
+            print("파일 이름을 줄 것"); return
+        st["skipped"].append(sys.argv[2]); save(st)
+        print(f"건너뜀: {sys.argv[2]}")
+        return
+
+    if cmd in ("run", "auto"):
+        p = pending(st)
+        if not p:
+            print("대기 중인 녹음 없음")
+            return
+        if cmd == "auto":
+            # 새로 들어온 것만 한 번 알린다 (주기마다 같은 알림을 띄우지 않게)
+            fresh = [n for n, _ in p if n not in st["notified"]]
+            if fresh:
+                notify(f"새 녹음 {len(fresh)}개 — 폰이 충전 중 + 화면 꺼지면 전사합니다")
+                st["notified"].extend(fresh)
+                save(st)
+            ok, why = phone_idle()
+            if not ok:
+                print(f"보류 — {why} (대기 {len(p)}개)")
+                return
+        n = int(sys.argv[2]) if len(sys.argv) > 2 and sys.argv[2].isdigit() else 1
+        done = 0
+        for name, path in p[:n]:
+            if transcribe(name, path, st):
+                done += 1
+        if done:
+            notify(f"{done}개 전사 완료 → {os.path.basename(OUT)}")
+        return
+
+    # status
+    p = pending(st)
+    print(f"대기   : {len(p)}개" + (f"  ({', '.join(n for n, _ in p[:3])}…)" if p else ""))
+    print(f"완료   : {len(st['done'])}개  → {OUT}")
+    if st["failed"]:
+        print(f"실패   : {len(st['failed'])}개")
+        for n, (c, why) in list(st["failed"].items())[:5]:
+            print(f"         {n} ({c}회) {why}")
+    print(f"기준선 : {len(st['baseline'])}개 (init 시점의 기존 녹음)")
+    ok, why = phone_idle()
+    print(f"폰     : {why}")
+
+
+if __name__ == "__main__":
+    main()

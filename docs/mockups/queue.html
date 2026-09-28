@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="shot" content="w=1600,h=1000,scale=2">
+<title>한가할 때만 전사</title>
+<link rel="stylesheet" href="https://mockup-kit.invalid/kit.css">
+<script src="https://mockup-kit.invalid/kit.js"></script>
+<style>
+  .head { position: absolute; top: 44px; left: 64px; right: 64px; }
+  .layout { position: absolute; top: 130px; left: 0; right: 0; bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 72px; }
+  .mac-col { width: 720px; display: flex; flex-direction: column; gap: 20px; }
+  .mac-col .terminal { height: 360px; }
+  .aod { background: #050506; color: #D6DAE0; }
+  .aod .status-bar { color: #9AA0A8; }
+  .aod-body { flex: 1; display: flex; flex-direction: column; align-items: center; padding-top: 170px; gap: 6px; }
+  .aod-time { font-size: 76px; line-height: 84px; font-weight: 300; letter-spacing: -1px; color: #EDEFF2; }
+  .aod-date { font-size: 16px; color: #9AA0A8; }
+  .aod-charge { margin-top: 26px; display: flex; align-items: center; gap: 8px; font-size: 15px; color: #7DD3A7; }
+  .aod-note { margin-top: auto; margin-bottom: 60px; font-size: 13px; color: #6F767F; text-align: center; line-height: 20px; }
+</style>
+</head>
+<body>
+<div class="canvas">
+  <div class="head">
+    <div class="canvas-title">새 녹음은 모아 두었다가, 폰이 한가할 때 전사합니다</div>
+    <div class="canvas-sub">전사 중에는 폰 화면을 빌려 쓰기 때문에, 「화면 꺼짐 + 충전 중」일 때만 한 개씩 돌립니다</div>
+  </div>
+
+  <div class="layout">
+    <div>
+      <div class="fold-cover" style="--zoom:.74">
+        <div class="screen aod">
+          <div class="status-bar" data-time="1:12" data-batt="64"></div>
+          <div class="aod-body">
+            <div class="aod-time">1:12</div>
+            <div class="aod-date">9월 28일 일요일</div>
+            <div class="aod-charge"><i data-icon="zap"></i>충전 중 · 64%</div>
+            <div class="aod-note">화면 꺼짐 + 충전 중<br>= 전사해도 되는 때</div>
+          </div>
+        </div>
+      </div>
+      <div class="device-label">폴드8 · 밤에 충전기 위</div>
+    </div>
+
+    <div class="mac-col">
+      <div class="mac-notification">
+        <span class="app-icon md" style="display:inline-flex;align-items:center;justify-content:center;background:var(--accent);color:var(--on-accent);border-radius:10px;width:40px;height:40px;font-size:20px"><i data-icon="mic"></i></span>
+        <div>
+          <div class="n-top"><span class="n-title">녹음 전사</span><span class="n-time">지금</span></div>
+          <div class="n-body">새 녹음 2개 — 폰이 충전 중 + 화면 꺼지면 전사합니다</div>
+        </div>
+      </div>
+      <div class="terminal">
+        <div class="terminal-bar"><span class="traffic"><i></i><i></i><i></i></span><span class="t-title">stt-queue — zsh</span></div>
+        <div class="terminal-body"><span class="t-prompt">❯</span> <span class="t-b">stt-queue</span>
+대기   : 2개  (스터디 모임.m4a, 장보기 메모.m4a…)
+완료   : 0개  → ~/Documents/phone-stt-transcripts
+기준선 : 42개 (init 시점의 기존 녹음)
+폰     : <span class="t-warn">폰을 쓰는 중(화면 켜짐)</span>
+
+<span class="t-prompt">❯</span> <span class="t-b">stt-queue auto</span>   <span class="t-dim"># 10분마다 주기 실행</span>
+<span class="t-dim">보류 — 폰을 쓰는 중(화면 켜짐) (대기 2개)</span>
+<span class="t-dim">… 밤, 충전기에 올린 뒤 …</span>
+▶ 전사: 스터디 모임.m4a
+<span class="t-ok">✅ 저장: ~/Documents/phone-stt-transcripts/스터디 모임.txt</span>
+
+<span class="t-prompt">❯</span> <span class="t-cursor"></span></div>
+      </div>
+      <div class="device-label">맥 · 큐 상태와 자동 실행</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

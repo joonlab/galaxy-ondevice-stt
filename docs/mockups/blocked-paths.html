@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="shot" content="w=1600,h=1000,scale=2">
+<title>막힌 여섯 경로</title>
+<link rel="stylesheet" href="https://mockup-kit.invalid/kit.css">
+<script src="https://mockup-kit.invalid/kit.js"></script>
+<style>
+  .head { position: absolute; top: 48px; left: 72px; right: 72px; }
+  .board { position: absolute; top: 180px; left: 72px; right: 72px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .board .card { padding: 22px 24px; gap: 10px; min-height: 210px; }
+  .num { font-size: 13px; font-weight: 700; color: var(--danger); letter-spacing: .2px; }
+  .card .card-title { font-size: 18px; line-height: 26px; }
+  .card .body { font-size: 16px; line-height: 25px; color: var(--dim); }
+  .card .mono { font-size: 13px; line-height: 20px; }
+  .x { color: var(--danger); font-size: 20px; }
+  .win { position: absolute; left: 72px; right: 72px; top: 690px; padding: 22px 26px; }
+  .win .card-title { font-size: 20px; line-height: 28px; }
+  .flow { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 6px; font-size: 15px; }
+  .flow .chip { font-size: 14px; }
+  .flow i { color: var(--dim); }
+</style>
+</head>
+<body>
+<div class="canvas light">
+  <div class="head">
+    <div class="canvas-title">표준 API 로는 파일을 넣을 문이 없었습니다</div>
+    <div class="canvas-sub">온디바이스 엔진(ko-KR)은 설치돼 있는데, 파일을 넣거나 결과를 꺼내는 공식 경로가 모두 막혀 있었습니다</div>
+  </div>
+
+  <div class="board">
+    <div class="card raised">
+      <div class="row"><span class="num">막힘 1</span><span class="spacer" style="flex:1"></span><i class="x" data-icon="x"></i></div>
+      <div class="card-title">SpeechRecognizer 파일 입력</div>
+      <div class="body">EXTRA_AUDIO_SOURCE 로 파일을 넘기면 인식기 4종 모두 즉시 거부. logcat 에도 흔적이 없습니다.</div>
+      <div class="mono dim">ERROR_CLIENT(5) · 7~43ms</div>
+    </div>
+    <div class="card raised">
+      <div class="row"><span class="num">막힘 2</span><span class="spacer" style="flex:1"></span><i class="x" data-icon="x"></i></div>
+      <div class="card-title">앱의 「자동 변환」 설정</div>
+      <div class="body">켜 두어도 앱이 직접 녹음한 것만 처리합니다. 밖에서 넣은 파일에는 걸리지 않습니다.</div>
+    </div>
+    <div class="card raised">
+      <div class="row"><span class="num">막힘 3</span><span class="spacer" style="flex:1"></span><i class="x" data-icon="x"></i></div>
+      <div class="card-title">공개 인텐트</div>
+      <div class="body">노출된 액션은 백업·복원·MAIN·VIEW 뿐. 전사를 시작하는 인텐트는 없습니다.</div>
+    </div>
+    <div class="card raised">
+      <div class="row"><span class="num">막힘 4</span><span class="spacer" style="flex:1"></span><i class="x" data-icon="x"></i></div>
+      <div class="card-title">결과 텍스트 파일</div>
+      <div class="body">전사 결과는 앱 내부 DB 에만 있습니다. 사람이 직접 공유·내보내기를 해야 파일이 생깁니다.</div>
+    </div>
+    <div class="card raised">
+      <div class="row"><span class="num">막힘 5</span><span class="spacer" style="flex:1"></span><i class="x" data-icon="x"></i></div>
+      <div class="card-title">화면에서 글자 긁기</div>
+      <div class="body">uiautomator 는 보이는 만큼만 덤프합니다. 2분 분량이 44자로 잘렸습니다.</div>
+    </div>
+    <div class="card raised">
+      <div class="row"><span class="num">막힘 6</span><span class="spacer" style="flex:1"></span><i class="x" data-icon="x"></i></div>
+      <div class="card-title">가상 디스플레이로 뒤에서 돌리기</div>
+      <div class="body">앱 분리와 덤프까지는 됐지만 외부 모니터로 인식돼 팝업이 뜹니다. 보류했습니다.</div>
+    </div>
+  </div>
+
+  <div class="card ok win">
+    <div class="row gap-8"><i data-icon="circle-check"></i><span class="card-title">남은 길: 앱 UI 를 adb 로 몰고, 공유 시트로 전문을 꺼낸다</span></div>
+    <div class="flow">
+      <span class="chip">adb push</span><i data-icon="chevron-right"></i>
+      <span class="chip">검색으로 찾기</span><i data-icon="chevron-right"></i>
+      <span class="chip">텍스트 변환</span><i data-icon="chevron-right"></i>
+      <span class="chip">언어 선택</span><i data-icon="chevron-right"></i>
+      <span class="chip">전사 대기</span><i data-icon="chevron-right"></i>
+      <span class="chip">공유 → 텍스트 파일</span><i data-icon="chevron-right"></i>
+      <span class="chip on">맥에 .txt 저장 · 2분 녹음 1,220자</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

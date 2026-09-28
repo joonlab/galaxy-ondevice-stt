@@ -1,0 +1,28 @@
+# 개인 설정
+config.env
+*.local.env
+.env
+
+# 실행 기록·상태 (녹음 파일명이 들어간다)
+*.log
+queue.json
+stt-queue.json
+runs/
+_data/
+
+# 녹음·전사 결과
+*.m4a
+*.mp3
+*.wav
+*.amr
+*.3gp
+*.aac
+transcripts/
+
+# 기타
+__pycache__/
+*.pyc
+.DS_Store
+.idea/
+node_modules/
+_trash/

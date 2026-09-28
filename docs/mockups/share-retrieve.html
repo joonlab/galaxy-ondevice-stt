@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="shot" content="w=1600,h=1000,scale=2">
+<title>공유 시트로 전문 회수</title>
+<link rel="stylesheet" href="https://mockup-kit.invalid/kit.css">
+<script src="https://mockup-kit.invalid/kit.js"></script>
+<style>
+  .head { position: absolute; top: 44px; left: 64px; right: 64px; }
+  .layout { position: absolute; top: 130px; left: 0; right: 0; bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 48px; }
+  .mac-col { width: 640px; display: flex; flex-direction: column; gap: 20px; }
+  .mac-col .terminal { height: 296px; }
+  .steps { display: flex; flex-direction: column; gap: 10px; }
+  .step { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; line-height: 22px; color: var(--mac-text); }
+  .step b { flex: none; width: 26px; height: 26px; border-radius: 13px; display: inline-flex; align-items: center; justify-content: center; background: var(--accent); color: var(--on-accent); font-size: 13px; }
+  .step span.d { color: var(--mac-dim); }
+  .line { font-size: 14.5px; line-height: 23px; }
+  .spk { font-size: 12.5px; font-weight: 700; color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="canvas app-clipbridge">
+  <div class="head">
+    <div class="canvas-title">전사 결과는 공유 시트로만 나옵니다</div>
+    <div class="canvas-sub">화면 긁기는 보이는 만큼만 잡혀서, 「공유 → 텍스트 파일」로 전문을 맥에 보냅니다. 받는 쪽은 바꿀 수 있습니다</div>
+  </div>
+
+  <div class="layout">
+    <div>
+      <div class="fold-open" style="--zoom:.74">
+        <div class="screen">
+          <div class="status-bar" data-time="2:34"></div>
+          <div class="app-bar">
+            <span class="mark"><i data-icon="mic"></i></span>
+            <span class="title">음성 녹음</span>
+            <span class="spacer"></span>
+            <span class="icon-btn"><i data-icon="more-vertical"></i></span>
+          </div>
+          <div class="two-pane list-detail dim-app">
+            <div class="pane">
+              <div class="list">
+                <div class="list-row selected"><i class="ico" data-icon="mic"></i><div class="grow"><div class="card-title ellipsis">stt143015</div><div class="meta ellipsis">02:04 · 방금</div></div></div>
+                <div class="list-row"><i class="ico" data-icon="mic"></i><div class="grow"><div class="card-title ellipsis">장보기 메모</div><div class="meta ellipsis">00:41 · 어제</div></div></div>
+              </div>
+            </div>
+            <div class="pane">
+              <div class="t-hero">금요일 발표 순서와 자료 마감 정리</div>
+              <div class="line"><span class="spk">발화자 1</span><br>이번 주 금요일 발표 순서부터 정하죠.</div>
+              <div class="line"><span class="spk">발화자 2</span><br>저는 두 번째가 좋아요.</div>
+            </div>
+          </div>
+          <div class="scrim"></div>
+          <div class="share-sheet">
+            <div class="sheet-handle"></div>
+            <div class="sheet-title">공유</div>
+            <div class="share-preview"><span class="ico" style="font-size:22px;color:var(--dim)"><i data-icon="file-text"></i></span><div class="grow"><div class="card-title ellipsis">stt143015.txt</div><div class="meta">텍스트 파일 · 화자 2명</div></div></div>
+            <div class="share-targets" style="grid-template-columns: repeat(6, 1fr)">
+              <div class="share-target pinned"><img data-app="clipbridge" alt="">맥으로 보내기</div>
+              <div class="share-target"><span class="t-ico"><i data-icon="message"></i></span>메시지</div>
+              <div class="share-target"><span class="t-ico"><i data-icon="folder"></i></span>내 파일</div>
+              <div class="share-target"><span class="t-ico"><i data-icon="paperclip"></i></span>메모</div>
+              <div class="share-target"><span class="t-ico"><i data-icon="cast"></i></span>근처 공유</div>
+              <div class="share-target"><span class="t-ico"><i data-icon="copy"></i></span>복사</div>
+            </div>
+          </div>
+          <div class="nav-handle"></div>
+        </div>
+      </div>
+      <div class="device-label">폴드8 · 「옵션 더보기 → 공유 → 텍스트 파일」까지 자동</div>
+    </div>
+
+    <div class="mac-col">
+      <div class="steps">
+        <div class="step"><b>1</b><div>오른쪽(상세) 패널의 「옵션 더보기」<br><span class="d">2패널이라 같은 이름 버튼이 둘 — x 좌표 하한으로 오른쪽 것을 고릅니다</span></div></div>
+        <div class="step"><b>2</b><div>「공유」 → 「텍스트 파일」<br><span class="d">라벨로 찾아 누릅니다. 좌표를 박아 두지 않습니다</span></div></div>
+        <div class="step"><b>3</b><div>공유 대상 「맥으로 보내기」(선택 사항)<br><span class="d">맥 폴더에 파일을 떨어뜨리는 앱이면 라벨만 바꿔 쓸 수 있습니다</span></div></div>
+      </div>
+      <div class="terminal">
+        <div class="terminal-bar"><span class="traffic"><i></i><i></i><i></i></span><span class="t-title">~/회의 — zsh</span></div>
+        <div class="terminal-body"><span class="t-accent">▶</span> 6/6 공유로 전문 회수 → 맥으로 보내기
+<span class="t-dim">  받은 파일: stt143015.txt (UTF-16) → UTF-8 변환</span>
+<span class="t-ok">✅ 저장: ~/전사/회의메모.txt  (1220자)</span>
+<span class="t-dim">─────</span>
+금요일 발표 순서와 자료 마감 정리
+발화자 1 (00:02)
+이번 주 금요일 발표 순서부터 정하죠.
+<span class="t-dim">(폰에서 원본 삭제 — 남기려면 --keep)</span>
+
+<span class="t-prompt">❯</span> <span class="t-b">phone-stt 장보기.m4a --no-fetch</span>
+<span class="t-ok">✅ 전사 완료 — 폰의 음성녹음 앱에 결과가 있습니다.</span></div>
+      </div>
+      <div class="device-label">맥 · 받는 앱이 없으면 --no-fetch 로 전사만</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

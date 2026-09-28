@@ -152,7 +152,13 @@ stt-queue run 3    # 조건 무시하고 지금 3개
 3. **조용히 멈추는 단계가 제일 무섭습니다.** 하루 뒤 「텍스트 변환」 다음에 「언어 선택」 다이얼로그가 새로 뜨기 시작했고, 스크립트는 에러 없이 450초를 기다리다 끝났습니다. 확인 버튼 라벨이 앞 메뉴와 똑같은 「텍스트 변환」이라, 글자가 아니라 resource-id(`select_language_trans_text`)로 집도록 고쳤습니다.
 4. **폴더블은 같은 버튼이 두 개입니다.** 펼친 화면이 2패널이라 「옵션 더보기」가 목록과 상세에 하나씩 있습니다. x 좌표 하한을 줘서 오른쪽 것을 고릅니다.
 
-<!-- VIDEO -->
+<!-- VIDEO:START -->
+### 홍보 영상
+
+[![홍보 영상 미리보기 — 누르면 전체 영상(가로 16:9, 72초)이 재생됩니다](docs/images/video-preview.webp)](https://pub-81d14e6ebfb841109968e9c0ee057d1b.r2.dev/android-mac-lab/videos/galaxy-ondevice-stt/galaxy-ondevice-stt_16x9.mp4)
+
+▶ [가로 16:9 · 72초](https://pub-81d14e6ebfb841109968e9c0ee057d1b.r2.dev/android-mac-lab/videos/galaxy-ondevice-stt/galaxy-ondevice-stt_16x9.mp4) · ▶ [세로 9:16 · 64초](https://pub-81d14e6ebfb841109968e9c0ee057d1b.r2.dev/android-mac-lab/videos/galaxy-ondevice-stt/galaxy-ondevice-stt_9x16.mp4) — 영상 속 화면은 설명용 목업이고, 책상 사진은 AI로 만든 배경입니다.
+<!-- VIDEO:END -->
 
 ## 관련 프로젝트
 

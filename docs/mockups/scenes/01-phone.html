@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<!-- 폴드8 펼친 화면 가로(1.35 : 1). 합성하면 수백 px 로 줄어들어서 zoom 으로 부품을 키운다 -->
+<meta name="shot" content="w=800,h=592,scale=2.25">
+<title>장면 1 폰</title>
+<link rel="stylesheet" href="https://mockup-kit.invalid/kit.css">
+<script src="https://mockup-kit.invalid/kit.js"></script>
+<style>
+  html, body { margin: 0; }
+  .screen.full { width: 500px; height: 370px; zoom: 1.6; border-radius: 0; }
+  .grid { flex: 1; min-height: 0; display: grid; grid-template-columns: 150px 1fr; }
+  .grid > .pane { min-width: 0; overflow: hidden; padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; }
+  .grid > .pane + .pane { border-left: 1px solid var(--border); padding-left: 16px; }
+  .list-row { min-height: 50px; padding: 8px 10px; gap: 8px; }
+  .list-row .card-title { font-size: 15px; }
+  .ttl { font-size: 18px; line-height: 24px; font-weight: 700; letter-spacing: -.2px; }
+  .line { font-size: 16px; line-height: 22px; }
+  .spk { font-size: 13px; font-weight: 700; color: var(--accent); }
+  .ts { font-size: 12.5px; color: var(--dim); margin-left: 6px; }
+  .app-bar { height: 46px; } .app-bar .status { display:none; }
+</style>
+</head>
+<body>
+<div class="screen full">
+  <div class="status-bar" data-time="2:31" data-batt="78"></div>
+  <div class="app-bar">
+    <span class="mark"><i data-icon="mic"></i></span>
+    <span class="title">음성 녹음</span>
+    <span class="status"><span class="dot ok"></span>adb 로 자동 조작 중</span>
+    <span class="spacer"></span>
+    <span class="icon-btn"><i data-icon="more-vertical"></i></span>
+  </div>
+  <div class="grid">
+    <div class="pane">
+      <div class="section-label">검색 결과</div>
+      <div class="list">
+        <div class="list-row selected"><i class="ico" data-icon="mic"></i><div class="grow"><div class="card-title ellipsis">stt143015</div><div class="meta ellipsis">02:04 · 방금</div></div></div>
+      </div>
+    </div>
+    <div class="pane">
+      <div class="row gap-8"><span class="tag ok">텍스트 변환 완료</span><span class="meta">화자 2명</span></div>
+      <div class="row gap-8"><i data-icon="sparkle" style="color:var(--accent);font-size:18px"></i><span class="ttl">금요일 발표 순서와 자료 마감 정리</span></div>
+      <div class="line"><span class="spk">발화자 1</span><span class="ts">00:02</span><br>이번 주 금요일 발표 순서부터 정하죠.</div>
+      <div class="line"><span class="spk">발화자 2</span><span class="ts">00:07</span><br>저는 두 번째가 좋아요.</div>
+      <div class="line"><span class="spk">발화자 1</span><span class="ts">00:15</span><br>좋아요. 민지 씨가 첫 번째로 해요.</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

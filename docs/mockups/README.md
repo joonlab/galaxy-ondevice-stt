@@ -9,3 +9,5 @@ node android-mac-lab/mockup-kit/shot.mjs --batch docs/mockups   # → docs/image
 ```
 
 킷 사용법: https://github.com/joonlab/android-mac-lab/tree/main/mockup-kit
+
+`scenes/` 는 README 「실제로 이렇게 씁니다」의 책상 사진에 합성한 화면입니다. 파일마다 배경 사진의 화면 영역 비율(맥 1.60, 폴드8 펼침 가로 1.35, 커버 0.72 등)에 맞춰 캔버스 크기를 정했습니다.

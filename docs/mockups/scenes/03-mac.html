@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<!-- 배경 C_folded_cover 의 맥 화면 영역(1.60 : 1) -->
+<meta name="shot" content="w=800,h=500,scale=2.25">
+<title>장면 3 맥</title>
+<link rel="stylesheet" href="https://mockup-kit.invalid/kit.css">
+<script src="https://mockup-kit.invalid/kit.js"></script>
+<style>
+  html, body { margin: 0; }
+  .desk { position: relative; width: 800px; height: 500px; overflow: hidden;
+    background: linear-gradient(150deg, #C9D6E3 0%, #E9E2D6 55%, #D8C8B4 100%); }
+  .desk > .mac-menubar { position: absolute; top: 0; left: 0; right: 0; z-index: 20; height: 26px; font-size: 13px; }
+  .win { position: absolute; left: 30px; width: 560px; top: 44px; bottom: 22px; }
+  .win.terminal { display: flex; }
+  .win .terminal-bar { height: 34px; }
+  .win .terminal-bar .t-title { font-size: 14px; }
+  .win .terminal-body { font-size: 20px; line-height: 30px; padding: 14px 20px; }
+  .mac-notification { position: absolute; top: 40px; right: 16px; width: 300px; z-index: 30; font-size: 15px; line-height: 20px; grid-template-columns: 40px 1fr; }
+  .mac-notification .n-title { font-size: 15.5px; }
+  .n-ico { width: 40px; height: 40px; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; background: var(--accent); color: var(--on-accent); font-size: 21px; }
+</style>
+</head>
+<body>
+<div class="desk">
+  <div class="mac-menubar">
+    <span class="app-name">터미널</span><span>셸</span><span>편집</span><span>보기</span>
+    <span class="extras"><span class="extra"><i data-icon="wifi"></i></span><span class="clock">9월 28일 (일) 오후 12:40</span></span>
+  </div>
+  <div class="win terminal">
+    <div class="terminal-bar"><span class="traffic"><i></i><i></i><i></i></span><span class="t-title">stt-queue — zsh</span></div>
+    <div class="terminal-body"><span class="t-prompt">❯</span> <span class="t-b">stt-queue</span>
+대기   : 2개  (스터디 모임.m4a…)
+완료   : 3개
+기준선 : 42개
+폰     : <span class="t-ok">한가함</span>
+
+<span class="t-prompt">❯</span> <span class="t-b">stt-queue auto</span>
+<span class="t-dim"># 10분마다 도는 주기 실행</span>
+▶ 전사: 스터디 모임.m4a
+<span class="t-cursor"></span></div>
+  </div>
+  <div class="mac-notification">
+    <span class="n-ico"><i data-icon="mic"></i></span>
+    <div>
+      <div class="n-top"><span class="n-title">녹음 전사</span><span class="n-time">지금</span></div>
+      <div class="n-body">새 녹음 2개 — 폰이 충전 중 + 화면 꺼지면 전사합니다</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

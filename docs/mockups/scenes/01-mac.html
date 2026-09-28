@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<!-- 배경 A_open_landscape 의 맥 화면 영역(1.60 : 1) -->
+<meta name="shot" content="w=800,h=500,scale=2.25">
+<title>장면 1 맥</title>
+<link rel="stylesheet" href="https://mockup-kit.invalid/kit.css">
+<script src="https://mockup-kit.invalid/kit.js"></script>
+<style>
+  html, body { margin: 0; }
+  .desk { position: relative; width: 800px; height: 500px; overflow: hidden;
+    background: linear-gradient(150deg, #C9D6E3 0%, #E9E2D6 55%, #D8C8B4 100%); }
+  .desk > .mac-menubar { position: absolute; top: 0; left: 0; right: 0; z-index: 20; height: 26px; font-size: 13px; }
+  .win { position: absolute; left: 36px; right: 36px; top: 44px; bottom: 22px; }
+  .win.terminal { display: flex; }
+  .win .terminal-bar { height: 34px; }
+  .win .terminal-bar .t-title { font-size: 14px; }
+  .win .terminal-body { font-size: 17.5px; line-height: 25px; padding: 10px 20px; }
+</style>
+</head>
+<body>
+<div class="desk">
+  <div class="mac-menubar">
+    <span class="app-name">터미널</span><span>셸</span><span>편집</span><span>보기</span><span>윈도우</span>
+    <span class="extras"><span class="extra"><i data-icon="wifi"></i></span><span class="extra"><i data-icon="battery"></i></span><span class="clock">9월 28일 (일) 오후 2:31</span></span>
+  </div>
+  <div class="win terminal">
+    <div class="terminal-bar"><span class="traffic"><i></i><i></i><i></i></span><span class="t-title">~/회의 — zsh</span></div>
+    <div class="terminal-body"><span class="t-prompt">❯</span> <span class="t-b">phone-stt 회의메모.m4a --out ~/전사</span>
+<span class="t-accent">▶</span> 1/6 폰으로 전송: stt143015.m4a
+<span class="t-accent">▶</span> 2/6 앱 열기
+<span class="t-accent">▶</span> 3/6 검색으로 찾아 열기
+<span class="t-accent">▶</span> 4/6 텍스트 변환 실행
+   <span class="t-dim">언어 선택 다이얼로그 → 한국어</span>
+<span class="t-accent">▶</span> 5/6 전사 대기…
+<span class="t-accent">▶</span> 6/6 공유로 전문 회수 → 맥으로 보내기
+<span class="t-ok">✅ 저장: ~/전사/회의메모.txt  (1220자)</span>
+<span class="t-dim">─────</span>
+금요일 발표 순서와 자료 마감 정리
+발화자 1 (00:02)
+이번 주 금요일 발표 순서부터 정하죠.
+<span class="t-prompt">❯</span> <span class="t-cursor"></span></div>
+  </div>
+</div>
+</body>
+</html>

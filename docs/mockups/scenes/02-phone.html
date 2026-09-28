@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<!-- 폴드8 펼친 화면 가로(1.35 : 1). 「옵션 더보기 → 공유 → 텍스트 파일」 다음, 공유 대상 고르는 순간 -->
+<meta name="shot" content="w=800,h=592,scale=2.25">
+<title>장면 2 폰</title>
+<link rel="stylesheet" href="https://mockup-kit.invalid/kit.css">
+<script src="https://mockup-kit.invalid/kit.js"></script>
+<style>
+  html, body { margin: 0; }
+  .screen.full { width: 500px; height: 370px; zoom: 1.6; border-radius: 0; }
+  .grid { flex: 1; min-height: 0; display: grid; grid-template-columns: 150px 1fr; }
+  .grid > .pane { min-width: 0; overflow: hidden; padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; }
+  .grid > .pane + .pane { border-left: 1px solid var(--border); padding-left: 16px; }
+  .list-row { min-height: 50px; padding: 8px 10px; gap: 8px; }
+  .ttl { font-size: 18px; line-height: 24px; font-weight: 700; }
+  .line { font-size: 16px; line-height: 22px; }
+  .spk { font-size: 13px; font-weight: 700; color: var(--accent); }
+  .app-bar { height: 46px; }
+  .share-sheet { left: 40px; right: 40px; gap: 10px; padding: 8px 18px 14px; }
+  .sheet-title { font-size: 18px; }
+  .share-preview .card-title { font-size: 16px; }
+  .share-targets { grid-template-columns: repeat(4, 1fr); }
+  .share-target { font-size: 14px; line-height: 18px; font-weight: 600; }
+  .share-target img, .share-target .t-ico { width: 50px; height: 50px; }
+  .share-target.pinned { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="screen full app-clipbridge">
+  <div class="status-bar" data-time="2:33" data-batt="77"></div>
+  <div class="app-bar">
+    <span class="mark"><i data-icon="mic"></i></span>
+    <span class="title">음성 녹음</span>
+    <span class="spacer"></span>
+    <span class="icon-btn"><i data-icon="more-vertical"></i></span>
+  </div>
+  <div class="grid">
+    <div class="pane">
+      <div class="list">
+        <div class="list-row selected"><i class="ico" data-icon="mic"></i><div class="grow"><div class="card-title ellipsis">stt143015</div><div class="meta ellipsis">02:04 · 방금</div></div></div>
+      </div>
+    </div>
+    <div class="pane">
+      <div class="ttl">금요일 발표 순서와 자료 마감 정리</div>
+      <div class="line"><span class="spk">발화자 1</span><br>이번 주 금요일 발표 순서부터 정하죠.</div>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="share-sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title">공유</div>
+    <div class="share-preview"><span style="font-size:24px;color:var(--dim)"><i data-icon="file-text"></i></span><div class="grow"><div class="card-title ellipsis">stt143015.txt</div><div class="meta">텍스트 파일 · 화자 2명</div></div></div>
+    <div class="share-targets">
+      <div class="share-target pinned"><img data-app="clipbridge" alt="">맥으로 보내기</div>
+      <div class="share-target"><span class="t-ico"><i data-icon="message"></i></span>메시지</div>
+      <div class="share-target"><span class="t-ico"><i data-icon="folder"></i></span>내 파일</div>
+      <div class="share-target"><span class="t-ico"><i data-icon="cast"></i></span>근처 공유</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

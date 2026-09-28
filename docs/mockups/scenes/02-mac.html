@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<!-- 배경 F_close_open 의 맥 화면 영역(0.92 : 1) — 클로즈업이라 맥 화면의 오른쪽 부분만 보인다 -->
+<meta name="shot" content="w=554,h=600,scale=3">
+<title>장면 2 맥</title>
+<link rel="stylesheet" href="https://mockup-kit.invalid/kit.css">
+<script src="https://mockup-kit.invalid/kit.js"></script>
+<style>
+  html, body { margin: 0; }
+  .desk { position: relative; width: 554px; height: 600px; overflow: hidden;
+    background: linear-gradient(150deg, #E9E2D6 0%, #D8C8B4 100%); }
+  .desk > .mac-menubar { position: absolute; top: 0; left: 0; right: 0; z-index: 20; height: 26px; font-size: 13px; }
+  .win { position: absolute; left: -24px; right: 26px; top: 46px; bottom: 26px; }
+  .win.terminal { display: flex; }
+  .win .terminal-bar { height: 34px; }
+  .win .terminal-body { font-size: 18px; line-height: 27px; padding: 12px 18px 12px 42px; }
+</style>
+</head>
+<body>
+<div class="desk">
+  <div class="mac-menubar">
+    <span class="extras"><span class="extra"><i data-icon="wifi"></i></span><span class="extra"><i data-icon="battery"></i></span><span class="clock">9월 28일 (일) 오후 2:33</span></span>
+  </div>
+  <div class="win terminal">
+    <div class="terminal-bar"><span class="t-title">~/회의 — zsh</span></div>
+    <div class="terminal-body"><span class="t-accent">▶</span> 5/6 전사 대기…
+<span class="t-accent">▶</span> 6/6 공유로 전문 회수
+   → 맥으로 보내기
+<span class="t-ok">✅ 저장: ~/전사/회의메모.txt</span>
+<span class="t-ok">   (1220자)</span>
+<span class="t-dim">─────</span>
+금요일 발표 순서와 자료 마감 정리
+발화자 1 (00:02)
+이번 주 금요일 발표 순서부터 정하죠.
+발화자 2 (00:07)
+저는 두 번째가 좋아요.
+<span class="t-dim">(폰에서 원본 삭제 — 남기려면 --keep)</span>
+<span class="t-prompt">❯</span> <span class="t-cursor"></span></div>
+  </div>
+</div>
+</body>
+</html>
